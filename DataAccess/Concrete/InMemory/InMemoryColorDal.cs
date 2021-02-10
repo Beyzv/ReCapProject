@@ -44,11 +44,11 @@ namespace DataAccess.Concrete.InMemory
             return _colors;
         }
 
-        public void Upgrade(Color entity)
+        public void Update(Color entity)
         {
-            Color colorToUpgrade = _colors.SingleOrDefault(c => c.ColorId == entity.ColorId);
-            colorToUpgrade.ColorName = entity.ColorName;
-            colorToUpgrade.ColorId = entity.ColorId;
+            Color colorToUpdate = _colors.SingleOrDefault(c => c.ColorId == entity.ColorId);
+            colorToUpdate.ColorName = entity.ColorName;
+            colorToUpdate.ColorId = entity.ColorId;
         }
     }
 }

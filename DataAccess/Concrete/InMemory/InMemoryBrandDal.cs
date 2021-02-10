@@ -43,7 +43,7 @@ namespace DataAccess.Concrete.InMemory
             return _brands;
         }
 
-        public void Upgrade(Brand entity)
+        public void Update(Brand entity)
         {
             Brand brandToUpgrade = _brands.SingleOrDefault(b => b.BrandId == entity.BrandId);
             brandToUpgrade.BrandId = entity.BrandId;
