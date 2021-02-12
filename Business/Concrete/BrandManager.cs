@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,45 +18,47 @@ namespace Business.Concrete
             _BrandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             if (brand.BrandName.Length>2)
             {
                 _BrandDal.Add(brand);
-                Console.WriteLine("Marka başarıyla eklendi.");
+                return new SuccessResult(Messages.BrandAdded);
             }
             else
             {
-                Console.WriteLine("Marka ismi iki karakterden fazla olmalıdır.");
+                return new ErrorResult(Messages.BrandInvalid);
             }
+           
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _BrandDal.Delete(brand);
-            Console.WriteLine("Marka silindi.");
+            return new SuccessResult(Messages.BrandDeleted);
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _BrandDal.GetAll();
+            return  new SuccessDataResult<List<Brand>>(_BrandDal.GetAll());
         }
 
-        public Brand GetById(int brandId)
+        public IDataResult<Brand> GetById(int brandId)
         {
-            return _BrandDal.Get(b => b.BrandId == brandId);
+            return new SuccessDataResult<Brand>(_BrandDal.Get(b => b.BrandId == brandId));
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             if (brand.BrandName.Length > 2)
             {
                 _BrandDal.Update(brand);
-                Console.WriteLine("Marka başarıyla güncellendi.");
+                return new SuccessResult(Messages.BrandUpdated);
             }
             else
             {
-                Console.WriteLine("Marka ismi iki karakterden fazla olmalıdır.");
+                Console.WriteLine(Messages.BrandInvalid);
+                return new ErrorResult(Messages.BrandInvalid);
             }
         }
     }
