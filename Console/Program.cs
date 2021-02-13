@@ -1,6 +1,7 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 using System;
 
 namespace Console
@@ -9,59 +10,56 @@ namespace Console
     {
         static void Main(string[] args)
         {
-
-            CarManager carManager = new CarManager(new EfCarDal());
+         
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
+           
 
+        }
+        static void RentCarTest(DateTime rentDate, DateTime returnDate, int carId,int customerId,int Id)
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Rental rental = new Rental();
+            rental.RentDate = rentDate;
+            rental.ReturnDate = returnDate;
+            rental.CarId = carId;
+            rental.CustomerId = customerId;
+            rental.Id = Id;
+            rentalManager.CarRentable(carId);
+
+        }
+        static void UserAddTest(string firstName, string lastName ,string Email,int userId ,string password)
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            User user = new User();
+            user.UserId = userId;
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.Email = Email;
+            user.Password = password;
+            userManager.Add(user);
+        }
+        static void CustomerAddTest( string CompanyName , int UserId ,int customerId)
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            Customer customer =new Customer();
+            customer.UserId = UserId;
+            customer.CustomerId = customerId;
+            customer.CompanyName = "Light Company";
+            customerManager.Add(customer);
+        }  
+        static void CarDetailTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
             var result = carManager.GetCarDetails();
-            if (result.Success==true)
+            foreach (var car in result.Data)
             {
-                foreach (var car in result.Data)
-                {
-                    System.Console.WriteLine(car.CarName +"/"+car.BrandName+"/"+car.ColorName+"/"+car.DailyPrice+"/"+car.Description );
-                }
+                 System.Console.WriteLine("Marka :"+car.BrandName+"\n"+
+                                          "Renk :"+car.ColorName+"\n"+
+                                          "Günlük fiyat :"+car.DailyPrice+"\n"+
+                                          "Detaylar :"+car.Description+"\n"+
+                                          "Model yılı :"+car.ModelYear+"\n");
             }
-          
-
-            //bool sonuc = true;
-            //while (sonuc)
-            //{
-            //    System.Console.WriteLine(" \n    Rent-a-car  \n" +
-            //                             "1-Fiyat Listesi  \n " +
-            //                             "2-Detaylarıyla tüm arabalarımız  \n" +
-            //                             "Gerçekleştirmek istediğiniz işlemi seçiniz."
-            //                             );
-            //    int number = Convert.ToInt32(System.Console.ReadLine());
-            //    System.Console.WriteLine("\n ************************************************************\n");
-            //    switch(number)
-            //    {
-            //        case 1:
-            //            decimal min = Convert.ToDecimal(System.Console.ReadLine());
-            //            decimal max = Convert.ToDecimal(System.Console.ReadLine());
-            //            foreach (var car in carManager.GetByDailyPrice(min,max))
-            //            {
-            //                System.Console.WriteLine($"{car.CarId} \t{colorManager.GetById(car.ColorId).ColorName}\t{brandManager.GetById(car.BrandId).BrandName} \t\t{car.ModelYear} \t {car.DailyPrice}");
-            //            }
-            //            break;
-            //        case 2:
-            //            System.Console.WriteLine("Arabalarımız :" );
-            //            foreach (var car in carManager.GetAll())
-            //            {
-            //                System.Console.WriteLine("\n Arabanın Günlük Fiyatı : " + car.DailyPrice + "/n Arabanın Modelinin Yılı :" + car.ModelYear + "\n Araba Hakkında : " + car.Description);
-            //            }
-
-            //            break;
-            //    }
-            //}
-
-         
-            //carManager.Add(new Entities.Concrete.Car { CarId = 6, BrandId = 2, ColorId = 4, Description = "Otomatik Dizel kırmızı fiat" , DailyPrice= 321 , ModelYear="2020" });
-
-            //foreach (var cars in carManager.GetCarDetails())
-            //{
-            //    System.Console.WriteLine(cars.BrandName + ":" + cars.CarId);
-            //}
         }
     }
 }
