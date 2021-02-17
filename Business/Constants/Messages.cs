@@ -29,6 +29,7 @@ namespace Business.Constants
         public static string RentalUpdated = "Kiralama güncellendi";
         public static string CarNotAvailable = "Araba müsait değil";
         public static string CarAvailable = "Araba müsait ";
+        public static string MainenanceTime = "Sistem bakımda";
 
 
     }

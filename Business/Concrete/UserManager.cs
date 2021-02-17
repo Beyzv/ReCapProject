@@ -11,15 +11,6 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        
-        //        return new SuccessResult(Messages.CarAdded);
-        //    }
-        //    else
-        //    {
-        //        return new ErrorResult(Messages.CarInvalid);
-        //    }
-
-        //}
         IUserDal _userDal;
         public UserManager(IUserDal userDal)
         {
