@@ -1,6 +1,4 @@
 ﻿using Business.Abstract;
-using Business.Concrete;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +13,6 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-
         ICarService _carService;
 
         public CarsController(ICarService carService)
@@ -31,7 +28,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return  BadRequest(result);
+            return BadRequest(result);
         }
         [HttpPost("add")]
         public IActionResult Post(Car car)
@@ -43,8 +40,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-       
 
     }
-
 }

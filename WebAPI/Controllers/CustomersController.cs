@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         {
             _customerService = customerService;
         }
-      
+
         [HttpGet("getall")]
         public IActionResult GetAll(Customer customer)
         {
@@ -40,6 +40,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-  
+
     }
 }

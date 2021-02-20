@@ -19,18 +19,8 @@ namespace WebAPI.Controllers
         {
             _brandService = brandService;
         }
-        [HttpPost("add")]
-        public IActionResult Post(Brand brand)
-        {
-            var result = _brandService.Add(brand);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
         [HttpGet("getall")]
-        public IActionResult GetAll(Brand brand)
+        public IActionResult Get(Brand brand)
         {
             var result = _brandService.GetAll();
             if (result.Success)
